@@ -6,6 +6,9 @@ public class Enemy : MonoBehaviour {
     public Rigidbody body;
 
     public void SetVelocity(Vector2 velocity) {
-        body.velocity = velocity;
+        var v = body.velocity;
+        v.x = velocity.x;
+        v.z = velocity.y;
+        body.velocity = v;
     }
 }

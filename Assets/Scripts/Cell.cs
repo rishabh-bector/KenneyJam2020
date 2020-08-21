@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public struct DirChange {
-    public Vector2 position;
+    public Vector3 position;
     public float radius;
     public Vector2 velocity;
 }
@@ -77,10 +77,11 @@ public class Cell : MonoBehaviour {
         child.name = "enemyMesh";
         child.transform.position = transform.position;
         var pos = transform.localPosition;
-        pos.y = 0.6f;
+        pos.y = -0.4f;
         child.transform.localPosition = pos;
         child.GetComponent<Enemy>().SetVelocity(spawnVelocity);
         spawnTimer = spawnRate;
+        GetComponentInParent<Map>().AddEnemy(child.GetComponent<Enemy>());
     }
 
     private void Update() {
