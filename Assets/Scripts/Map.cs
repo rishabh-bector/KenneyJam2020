@@ -15,6 +15,7 @@ public class Map : MonoBehaviour {
     public GameObject[,] data;
     public List<DirChange> dirChanges;
     public List<Enemy> enemies;
+    public GameObject towerSelected;
 
     public static (int, int)[,] emptyLevel = {
         {(2, 0), (2, 0), (2, 0), (2, 0), (3, 1), (2, 0), (2, 0), (2, 0), (2, 0), (2, 0) },
@@ -87,6 +88,10 @@ public class Map : MonoBehaviour {
     public void AddDirChange(DirChange dirChange) {
         if (dirChanges == null) dirChanges = new List<DirChange>();
         dirChanges.Add(dirChange);
+    }
+
+    public void PurchaseTower(GameObject tower) {
+        towerSelected = tower;
     }
 
     private DirChange BuildDirChange(Vector3 position, float radius, Vector2 velocity) {
