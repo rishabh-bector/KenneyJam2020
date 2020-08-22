@@ -23,7 +23,7 @@ public class Cell : MonoBehaviour {
     public Vector2 spawnVelocity;
     public float spawnRate;
     public float spawnTimer;
-    public bool hovered;
+    private bool hovered;
 
     private void Start() {
         InitTiles();
