@@ -5,8 +5,26 @@ using UnityEngine;
 public abstract class Tower : MonoBehaviour {
     // References
     public Map map;
-
     // Config
-    private double _range;
     public abstract double range {get; set;}
+
+    public int level = 1;
+    public abstract void Upgrade ();
+
+    public GameObject TargetEnemy() {
+        Enemy closest = map.enemies[0];
+        double lowestDistance = 1e99;
+        foreach (var enemy in map.enemies)
+        {
+            var distance = (enemy.transform.position - transform.position).magnitude;
+            if (distance < lowestDistance && distance < range) {
+                closest = enemy;
+                lowestDistance = distance;
+            }
+        }
+        if (lowestDistance == 1e99) {
+            return null;
+        }
+        return closest.gameObject;
+    }
 }

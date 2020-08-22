@@ -10,6 +10,9 @@ public class Cannon : Tower
     public float shotRate;
     public float bulletSpeed;
     public override double range {get; set;} = 3;
+    public float[] rangeUpgrades = {1.5f, 2f, 3f};
+    public float[] speedUpgrades = {1.5f, 2f, 3f};
+    public float[] rateUpgrades = {1.5f, 2f, 3f};
     // State
     private float shotTimer;
     private bool loaded;
@@ -56,26 +59,13 @@ public class Cannon : Tower
         }
     }
 
-    public void Upgrade(float rangeMul, float speedMul, float rateMul) {
+    public override void Upgrade() {
+        level += 1;
+        var rangeMul = rangeUpgrades[level];
+        var speedMul = speedUpgrades[level];
+        var rateMul = rateUpgrades[level];
         range *= rangeMul;
         bulletSpeed *= speedMul;
         shotRate /= rateMul;
-    }
-
-    GameObject TargetEnemy() {
-        Enemy closest = map.enemies[0];
-        double lowestDistance = 1e99;
-        foreach (var enemy in map.enemies)
-        {
-            var distance = (enemy.transform.position - transform.position).magnitude;
-            if (distance < lowestDistance && distance < range) {
-                closest = enemy;
-                lowestDistance = distance;
-            }
-        }
-        if (lowestDistance == 1e99) {
-            return null;
-        }
-        return closest.gameObject;
     }
 }
