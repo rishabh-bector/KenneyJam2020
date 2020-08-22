@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8719569588901806534}
   - component: {fileID: 3044058674617220415}
   - component: {fileID: 6033817901512364159}
+  - component: {fileID: -4599858136574771833}
   m_Layer: 0
   m_Name: MachineGun
   m_TagString: Untagged
@@ -96,11 +97,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
+  cell: {fileID: 0}
   level: 1
   bulletMesh: {fileID: 2825118367478205893, guid: 2338ac9d293602947a2bb6dd86f120c5,
     type: 3}
   shotRate: 0
   bulletSpeed: 0
+  bulletDamage: 0
   rangeUpgrades:
   - 1.5
   - 2
@@ -113,6 +116,19 @@ MonoBehaviour:
   - 1.5
   - 2
   - 3
+--- !u!65 &-4599858136574771833
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3603580297994783203}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22992359, y: 0.20999998, z: 0.30999994}
+  m_Center: {x: 0, y: 0.10499999, z: 0.024999999}
 --- !u!1 &8065291119743787518
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,6 +72,8 @@ public class Cell : MonoBehaviour {
         if (transform.parent.GetComponent<Map>().towerSelected == null) return;
         var tower = Instantiate(transform.parent.GetComponent<Map>().towerSelected);
         tower.transform.parent = transform.parent;
+        tower.GetComponent<Tower>().map = transform.parent.GetComponent<Map>();
+        tower.GetComponent<Tower>().cell = this;
         tower.name = "towerMesh";
         tower.transform.position = transform.position;
         var pos = transform.localPosition;
@@ -80,27 +82,44 @@ public class Cell : MonoBehaviour {
         transform.parent.GetComponent<Map>().towerSelected = null;
     }
 
-    void OnMouseEnter() {
-        if (transform.parent.GetComponent<Map>().towerSelected != null && tileTypes[1] == 2) {
-            Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
-            color -= Color.grey;
-            transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+    public void RangeHoop(float range, bool on = true) {
+        if (on) {
             var rangeHoop = Instantiate(rangeHoopMesh);
             rangeHoop.transform.parent = transform.parent;
             rangeHoop.name = "rangeHoop";
             rangeHoop.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            var range = (float)transform.parent.GetComponent<Map>().towerSelected.GetComponent<Tower>().range;
             rangeHoop.transform.localScale = new Vector3(range, 1.0f, range);
+            return;
+        }
+        Destroy(transform.parent.Find("rangeHoop").gameObject);
+    }
+
+    public void Shade(bool on = true) {
+        Color color;
+        if (on) {
+            color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
+            color -= Color.grey;
+            transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+            return;
+        }
+        color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
+        color += Color.grey;
+        transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+    }
+
+    void OnMouseEnter() {
+        if (transform.parent.GetComponent<Map>().towerSelected != null && tileTypes[1] == 2) {
+            var range = (float)transform.parent.GetComponent<Map>().towerSelected.GetComponent<Tower>().range;
+            RangeHoop(range);
+            Shade();
             hovered = true;
         }
     }
 
     void OnMouseExit() {
         if (transform.parent.GetComponent<Map>().towerSelected != null && tileTypes[1] == 2) {
-            Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
-            color += Color.grey;
-            transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
-            Destroy(transform.parent.Find("rangeHoop").gameObject);
+            RangeHoop(0f, false);
+            Shade(false);
             hovered = false;
         }
     }
@@ -108,9 +127,7 @@ public class Cell : MonoBehaviour {
     void OnMouseDown() {
         if (transform.parent.GetComponent<Map>().towerSelected && hovered) {
             hovered = false;
-            Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
-            color += Color.grey;
-            transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+            Shade(false);
             Destroy(transform.parent.Find("rangeHoop").gameObject);
             CreateTower();
         }

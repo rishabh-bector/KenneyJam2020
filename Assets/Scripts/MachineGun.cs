@@ -20,7 +20,6 @@ public class MachineGun : Tower
 
     // Start is called before the first frame update
     void Start() {
-        map = transform.parent.GetComponent<Map>();
         shotRate = 0.5f;
         bulletDamage = 0.2f;
         bulletSpeed = 10f;

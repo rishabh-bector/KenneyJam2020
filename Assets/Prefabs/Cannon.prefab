@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5693376569170085922}
   - component: {fileID: 2035177023774766299}
   - component: {fileID: 1101548751214940865}
+  - component: {fileID: -1811503892841491341}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -95,12 +96,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d95e6afe3db70478b3f033faa50c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 0}
+  cell: {fileID: 0}
+  level: 1
   bulletMesh: {fileID: 2825118367478205893, guid: 2338ac9d293602947a2bb6dd86f120c5,
     type: 3}
   shotRate: 0
-  bulletSize: 0
   bulletSpeed: 0
-  range: 0
+  bulletDamage: 0
+  rangeUpgrades:
+  - 1.5
+  - 2
+  - 3
+  speedUpgrades:
+  - 1.5
+  - 2
+  - 3
+  rateUpgrades:
+  - 1.5
+  - 2
+  - 3
+--- !u!65 &-1811503892841491341
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288987616747159559}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22992359, y: 0.15748088, z: 0.22992359}
+  m_Center: {x: 0, y: 0.07874044, z: 0}
 --- !u!1 &5096915789825470675
 GameObject:
   m_ObjectHideFlags: 0

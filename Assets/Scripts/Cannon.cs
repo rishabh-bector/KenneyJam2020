@@ -20,7 +20,6 @@ public class Cannon : Tower
 
     // Start is called before the first frame update
     void Start() {
-        map = transform.parent.GetComponent<Map>();
         shotRate = 2;
         bulletDamage = 0.55f;
         bulletSpeed = 7f;
