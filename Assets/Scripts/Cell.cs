@@ -74,23 +74,39 @@ public class Cell : MonoBehaviour {
         spawnVelocity = velocity;
     }
 
+<<<<<<< HEAD
     public void SelectTower(GameObject model) {
         towerSelected = model;
+=======
+    public void Spawn() {
+        if (spawnChild == null) return;
+        var child = Instantiate(spawnChild);
+        child.transform.parent = transform.parent;
+        child.name = "enemyMesh";
+        child.transform.position = transform.position;
+        var pos = transform.localPosition;
+        pos.y = -0.4f;
+        child.transform.localPosition = pos;
+        child.GetComponent<Enemy>().SetVelocity(spawnVelocity);
+        spawnTimer = spawnRate;
+        GetComponentInParent<Map>().AddEnemy(child.GetComponent<Enemy>());
+>>>>>>> 0a3ff77ab961d3debcc7273dd72b231ad7ac2a58
     }
 
     public void CreateTower() {
-        if (towerSelected == null) return;
-        var tower = Instantiate(towerSelected);
+        if (transform.parent.GetComponent<Map>().towerSelected == null) return;
+        var tower = Instantiate(transform.parent.GetComponent<Map>().towerSelected);
         tower.transform.parent = transform.parent;
         tower.name = "towerMesh";
         tower.transform.position = transform.position;
         var pos = transform.localPosition;
         pos.y = -1.0f;
         tower.transform.localPosition = pos;
+        transform.parent.GetComponent<Map>().towerSelected = null;
     }
 
     void OnMouseEnter() {
-        if (towerSelected != null && tileTypes[1] == 2) {
+        if (transform.parent.GetComponent<Map>().towerSelected != null && tileTypes[1] == 2) {
             Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
             color -= Color.grey;
             transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
@@ -99,7 +115,7 @@ public class Cell : MonoBehaviour {
     }
 
     void OnMouseExit() {
-        if (towerSelected != null && tileTypes[1] == 2) {
+        if (transform.parent.GetComponent<Map>().towerSelected != null && tileTypes[1] == 2) {
             Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
             color += Color.grey;
             transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
@@ -108,7 +124,11 @@ public class Cell : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        if (towerSelected && hovered) {
+        if (transform.parent.GetComponent<Map>().towerSelected && hovered) {
+            hovered = false;
+            Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
+            color += Color.grey;
+            transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
             CreateTower();
         }
     }
