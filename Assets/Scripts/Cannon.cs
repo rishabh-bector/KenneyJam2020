@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : MonoBehaviour
+public class Cannon : Tower
 {
     // References
     public GameObject bulletMesh;
-    public Map map;
     // Config
     public float shotRate;
-    public float bulletSize;
     public float bulletSpeed;
-    public int range;
-
+    public override double range {get; set;} = 3;
     // State
     private float shotTimer;
     private bool loaded;
@@ -21,17 +18,20 @@ public class Cannon : MonoBehaviour
     void Start() {
         map = transform.parent.GetComponent<Map>();
         shotRate = 2;
-        bulletSize = 0.3f;
-        bulletSpeed = 10f;
-        range = 3;
+        bulletSpeed = 7f;
         shotTimer = shotRate;
     }
 
     // Update is called once per frame
     void Update() {
         var enemy = TargetEnemy();
-        transform.LookAt(enemy.transform);
+        if (enemy != null) {
+            transform.LookAt(enemy.transform);
+        }
         if (loaded) {
+            if (enemy == null) {
+                return;
+            }
             var bullet = Instantiate(bulletMesh);
             bullet.transform.parent = transform.parent;
             bullet.transform.position = transform.position;
@@ -56,16 +56,25 @@ public class Cannon : MonoBehaviour
         }
     }
 
+    public void Upgrade(float rangeMul, float speedMul, float rateMul) {
+        range *= rangeMul;
+        bulletSpeed *= speedMul;
+        shotRate /= rateMul;
+    }
+
     GameObject TargetEnemy() {
         Enemy closest = map.enemies[0];
         double lowestDistance = 1e99;
         foreach (var enemy in map.enemies)
         {
             var distance = (enemy.transform.position - transform.position).magnitude;
-            if (distance < lowestDistance) {
+            if (distance < lowestDistance && distance < range) {
                 closest = enemy;
                 lowestDistance = distance;
             }
+        }
+        if (lowestDistance == 1e99) {
+            return null;
         }
         return closest.gameObject;
     }
