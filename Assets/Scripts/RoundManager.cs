@@ -18,6 +18,8 @@ public struct Round {
 public class RoundManager : MonoBehaviour {
     // References
     public Map map;
+    public HealthManager healthManager;
+    public Camera mainCamera;
     public TMP_Text roundLabel;
 
     // Config
@@ -35,7 +37,7 @@ public class RoundManager : MonoBehaviour {
         this.rounds = rounds;
         roundLabel.text = "Round: 1";
     }
-
+    
     public void NextRound() {
         currentRound++;
         currentWave = 0;
@@ -82,6 +84,10 @@ public class RoundManager : MonoBehaviour {
 
         child.GetComponent<Enemy>().SetVelocity(rounds[currentRound].spawnVelocity);
         GetComponentInParent<Map>().AddEnemy(child.GetComponent<Enemy>());
+
+        child.GetComponent<Enemy>().healthBar = healthManager.NewHealthBar();
+        child.GetComponent<Enemy>().healthBar.mainCamera = mainCamera;
+        child.GetComponent<Enemy>().healthBar.parent = child.GetComponent<Enemy>();
 
         currentEnemy++;
     }
