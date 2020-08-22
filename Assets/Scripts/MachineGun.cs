@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : Tower
+public class MachineGun : Tower
 {
     // References
     public GameObject bulletMesh;
@@ -20,8 +20,8 @@ public class Cannon : Tower
     // Start is called before the first frame update
     void Start() {
         map = transform.parent.GetComponent<Map>();
-        shotRate = 2;
-        bulletSpeed = 7f;
+        shotRate = 0.5f;
+        bulletSpeed = 10f;
         shotTimer = shotRate;
     }
 
@@ -35,20 +35,23 @@ public class Cannon : Tower
             if (enemy == null) {
                 return;
             }
-            var bullet = Instantiate(bulletMesh);
-            bullet.transform.parent = transform.parent;
-            bullet.transform.position = transform.position;
-            var travelVec = enemy.transform.position - bullet.transform.position;
-            bullet.GetComponent<Rigidbody>().velocity = Vector3.Normalize(travelVec) * bulletSpeed;
-            var travelTime = travelVec.magnitude / bulletSpeed;
-            var off = enemy.GetComponent<Rigidbody>().velocity * travelTime;
-            var go = new GameObject();
-            go.transform.position = enemy.transform.position + off;
-            bullet.transform.LookAt(enemy.transform);
-            travelVec = go.transform.position - bullet.transform.position;
-            Destroy(go);
-            bullet.GetComponent<Rigidbody>().velocity = Vector3.Normalize(travelVec) * bulletSpeed;
-            bullet.transform.Rotate(new Vector3(90, 0, 0));
+            for (int i = 0; i < 2; i++) {
+                var bullet = Instantiate(bulletMesh);
+                bullet.transform.parent = transform.parent;
+                bullet.transform.position = transform.position + i * 0.5f * transform.right;
+                bullet.transform.localScale = new Vector3(15, 15, 15);
+                var travelVec = enemy.transform.position - bullet.transform.position;
+                bullet.GetComponent<Rigidbody>().velocity = Vector3.Normalize(travelVec) * bulletSpeed;
+                var travelTime = travelVec.magnitude / bulletSpeed;
+                var off = enemy.GetComponent<Rigidbody>().velocity * travelTime;
+                var go = new GameObject();
+                go.transform.position = enemy.transform.position + off;
+                bullet.transform.LookAt(enemy.transform);
+                travelVec = go.transform.position - bullet.transform.position;
+                Destroy(go);
+                bullet.GetComponent<Rigidbody>().velocity = Vector3.Normalize(travelVec) * bulletSpeed;
+                bullet.transform.Rotate(new Vector3(90, 0, 0));
+            }
             loaded = false;
             shotTimer = shotRate;
             return;
