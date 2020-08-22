@@ -43,6 +43,7 @@ public class Cannon : MonoBehaviour
             go.transform.position = enemy.transform.position + off;
             bullet.transform.LookAt(enemy.transform);
             travelVec = go.transform.position - bullet.transform.position;
+            Destroy(go);
             bullet.GetComponent<Rigidbody>().velocity = Vector3.Normalize(travelVec) * bulletSpeed;
             bullet.transform.Rotate(new Vector3(90, 0, 0));
             loaded = false;
