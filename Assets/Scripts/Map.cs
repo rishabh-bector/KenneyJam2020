@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using TMPro;
 
 
 public class Map : MonoBehaviour {
@@ -8,6 +9,7 @@ public class Map : MonoBehaviour {
     public GameObject cellPrefab;
     public GameObject enemyPrefab;
     public RoundManager roundManager;
+    public TMP_Text livesLabel;
 
     // Config
     public int mapWidth;
@@ -18,6 +20,7 @@ public class Map : MonoBehaviour {
     public List<DirChange> dirChanges;
     public List<Enemy> enemies;
     public GameObject towerSelected;
+    public int lives;
 
     public static (int, int)[,] emptyLevel = {
         {(2, 0), (2, 0), (2, 0), (2, 0), (3, 1), (2, 0), (2, 0), (2, 0), (2, 0), (2, 0) },
@@ -54,7 +57,13 @@ public class Map : MonoBehaviour {
             new List<EnemyWave>() { r1w1 }
         );
 
-        roundManager.Init(new List<Round>() { r1 });
+        Round r2 = roundManager.BuildRound(
+            data[0, 4].transform,
+            new Vector2(1, 0),
+            new List<EnemyWave>() { r1w1 }
+        );
+
+        roundManager.Init(new List<Round>() { r1, r2 });
         
         dirChanges.Add(BuildDirChange(data[7, 4].transform.position, 1, new Vector2(0, 1)));
         dirChanges.Add(BuildDirChange(data[6, 9].transform.position, 1.5f, new Vector2(1, 0)));
@@ -118,9 +127,14 @@ public class Map : MonoBehaviour {
 
     public void AddEnemy(Enemy e) { enemies.Add(e); }
 
-    public void RemoveEnemy(Enemy e) {
+    public void RemoveEnemy(Enemy e, int lostLives) {
         enemies.Remove(e);
         Destroy(e.healthBar.gameObject);
         Destroy(e.gameObject);
+        
+        if (lostLives > 0) {
+            lives -= lostLives;
+            livesLabel.text = "Lives: " + lives;
+        }
     }
 }

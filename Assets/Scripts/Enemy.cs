@@ -18,8 +18,12 @@ public class Enemy : MonoBehaviour {
             Destroy(other.gameObject);
             healthBar.SetHealth(healthBar.GetHealth() - 0.55f);
             if (healthBar.GetHealth() <= 0) {
-                GetComponentInParent<Map>().RemoveEnemy(this); 
+                GetComponentInParent<Map>().RemoveEnemy(this, 0); 
             }
+        }
+
+        if (other.gameObject.tag.Equals("end")) {
+            GetComponentInParent<Map>().RemoveEnemy(this, 1);
         }
     }
 }
