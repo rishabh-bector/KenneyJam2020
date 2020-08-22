@@ -9,6 +9,7 @@ public class MachineGun : Tower
     // Config
     public float shotRate;
     public float bulletSpeed;
+    public float bulletDamage;
     public override double range {get; set;} = 3;
     public float[] rangeUpgrades = {1.5f, 2f, 3f};
     public float[] speedUpgrades = {1.5f, 2f, 3f};
@@ -21,6 +22,7 @@ public class MachineGun : Tower
     void Start() {
         map = transform.parent.GetComponent<Map>();
         shotRate = 0.5f;
+        bulletDamage = 0.2f;
         bulletSpeed = 10f;
         shotTimer = shotRate;
     }
@@ -37,6 +39,7 @@ public class MachineGun : Tower
             }
             for (int i = 0; i < 2; i++) {
                 var bullet = Instantiate(bulletMesh);
+                bullet.GetComponent<Bullet>().damage = bulletDamage;
                 bullet.transform.parent = transform.parent;
                 bullet.transform.position = transform.position + i * 0.5f * transform.right;
                 bullet.transform.localScale = new Vector3(15, 15, 15);
