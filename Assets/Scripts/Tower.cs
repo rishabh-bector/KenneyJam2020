@@ -14,9 +14,7 @@ public abstract class Tower : MonoBehaviour {
     private bool clicked;
 
     public GameObject TargetEnemy() {
-        if (map.enemies.Count == 0) {
-            return null;
-        }
+        if (map.enemies.Count == 0) return null;
         Enemy closest = map.enemies[0];
         double lowestDistance = 1e99;
         foreach (var enemy in map.enemies)
