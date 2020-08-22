@@ -52,14 +52,13 @@ MonoBehaviour:
     type: 3}
   pathTurn: {fileID: -927199367670048503, guid: cff2d3188d83d4be4aeb452686ac2033,
     type: 3}
+  rangeHoopMesh: {fileID: 3039486824985353268, guid: 38a70ef4ca0ff7843810d2ae64152099,
+    type: 3}
   tiles: []
   tileTypes: 
   spawnVelocity: {x: 0, y: 0}
   spawnRate: 0
   spawnTimer: 0
-  towerSelected: {fileID: 288987616747159559, guid: 3f998397089129b478994f56837b9950,
-    type: 3}
-  hovered: 0
 --- !u!65 &-9191282395365732544
 BoxCollider:
   m_ObjectHideFlags: 0

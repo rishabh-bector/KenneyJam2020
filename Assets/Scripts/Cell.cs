@@ -13,6 +13,7 @@ public class Cell : MonoBehaviour {
     public GameObject dirt;
     public GameObject pathStraight;
     public GameObject pathTurn;
+    public GameObject rangeHoopMesh;
 
     // Config
     public GameObject[] tiles;
@@ -67,10 +68,6 @@ public class Cell : MonoBehaviour {
 
     public void SetPos(Vector3 pos) { transform.position = pos; }
 
-    public void SelectTower(GameObject model) {
-        towerSelected = model;
-    }
-
     public void CreateTower() {
         if (transform.parent.GetComponent<Map>().towerSelected == null) return;
         var tower = Instantiate(transform.parent.GetComponent<Map>().towerSelected);
@@ -88,6 +85,12 @@ public class Cell : MonoBehaviour {
             Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
             color -= Color.grey;
             transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+            var rangeHoop = Instantiate(rangeHoopMesh);
+            rangeHoop.transform.parent = transform.parent;
+            rangeHoop.name = "rangeHoop";
+            rangeHoop.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            var range = (float)transform.parent.GetComponent<Map>().towerSelected.GetComponent<Tower>().range;
+            rangeHoop.transform.localScale = new Vector3(range, 1.0f, range);
             hovered = true;
         }
     }
@@ -97,6 +100,7 @@ public class Cell : MonoBehaviour {
             Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
             color += Color.grey;
             transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+            Destroy(transform.parent.Find("rangeHoop").gameObject);
             hovered = false;
         }
     }
@@ -107,6 +111,7 @@ public class Cell : MonoBehaviour {
             Color color = transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color;
             color += Color.grey;
             transform.Find("upperTile").GetComponent<MeshRenderer>().materials[1].color = color;
+            Destroy(transform.parent.Find("rangeHoop").gameObject);
             CreateTower();
         }
     }
