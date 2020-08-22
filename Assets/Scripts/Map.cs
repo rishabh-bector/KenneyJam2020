@@ -46,7 +46,7 @@ public class Map : MonoBehaviour {
         }
 
         // Initialize round manager
-        EnemyWave r1w1 = roundManager.BuildWave(enemyPrefab, 1, 1);
+        EnemyWave r1w1 = roundManager.BuildWave(enemyPrefab, 2, 3);
         Round r1 = roundManager.BuildRound(
             data[0, 4].transform, 
             new Vector2(1, 0), 
@@ -116,4 +116,10 @@ public class Map : MonoBehaviour {
     }
 
     public void AddEnemy(Enemy e) { enemies.Add(e); }
+
+    public void RemoveEnemy(Enemy e) {
+        enemies.Remove(e);
+        Destroy(e.healthBar.gameObject);
+        Destroy(e.gameObject);
+    }
 }
