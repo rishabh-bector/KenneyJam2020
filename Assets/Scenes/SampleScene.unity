@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 608521584}
   - component: {fileID: 608521583}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RoundLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 983756099}
   - component: {fileID: 983756098}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: CashLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 1017713721}
   - component: {fileID: 1017713720}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StartLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1247,6 +1247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151648590}
   - component: {fileID: 1151648589}
+  - component: {fileID: 1151648591}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1270,6 +1271,7 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 2061742173896885521, guid: 660e8f45db1844309a15ea621cd2f0ea,
     type: 3}
+  roundManager: {fileID: 1151648591}
   mapWidth: 10
   mapHeight: 10
   enemies: []
@@ -1287,6 +1289,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151648591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151648588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f94a5b1d4d7e414ea716bfad58450dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 1151648589}
+  roundLabel: {fileID: 608521583}
+  currentWave: 0
+  currentEnemy: 0
+  playing: 0
+  spawnTimer: 0
 --- !u!1 &1157833107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1388,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1157833110}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1151648591}
+        m_MethodName: NextRound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1157833110
 MonoBehaviour:
   m_ObjectHideFlags: 0
