@@ -22,9 +22,9 @@ public class Cell : MonoBehaviour {
     private GameObject spawnChild;
     public int[] tileTypes;
     public Vector2 spawnVelocity;
-    public float spawnRate;
-    public float spawnTimer;
-    private bool hovered;
+
+    public GameObject towerSelected;
+    public bool hovered;
 
     private void Start() {
         InitTiles();
@@ -72,7 +72,6 @@ public class Cell : MonoBehaviour {
     public void SetSpawner(GameObject spawn, float rate, Vector2 velocity) {
         if (spawn == null) return;
         spawnChild = spawn;
-        spawnRate = rate;
         spawnVelocity = velocity;
     }
 
@@ -86,7 +85,6 @@ public class Cell : MonoBehaviour {
         pos.y = -0.4f;
         child.transform.localPosition = pos;
         child.GetComponent<Enemy>().SetVelocity(spawnVelocity);
-        spawnTimer = spawnRate;
         GetComponentInParent<Map>().AddEnemy(child.GetComponent<Enemy>());
     }
 
@@ -100,14 +98,6 @@ public class Cell : MonoBehaviour {
         pos.y = -1.0f;
         tower.transform.localPosition = pos;
         transform.parent.GetComponent<Map>().towerSelected = null;
-    }
-
-    private void Update() {
-        spawnTimer -= Time.deltaTime;
-        if (spawnTimer < 0) {
-            Spawn();
-            spawnTimer = spawnRate;
-        }
     }
 
     void OnMouseEnter() {

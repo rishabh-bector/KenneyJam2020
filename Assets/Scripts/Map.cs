@@ -6,6 +6,7 @@ public class Map : MonoBehaviour {
     // References
     public GameObject cellPrefab;
     public GameObject enemyPrefab;
+    public RoundManager roundManager;
 
     // Config
     public int mapWidth;
@@ -35,6 +36,7 @@ public class Map : MonoBehaviour {
         dirChanges = new List<DirChange>();
         enemies = new List<Enemy>();
         
+        // Initialize map
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 data[x, y] = Instantiate(cellPrefab);
@@ -43,7 +45,16 @@ public class Map : MonoBehaviour {
             }
         }
 
-        data[0, 4].GetComponent<Cell>().SetSpawner(enemyPrefab, 3, new Vector2(1, 0));
+        // Initialize round manager
+        EnemyWave r1w1 = roundManager.BuildWave(enemyPrefab, 1, 3);
+        Round r1 = roundManager.BuildRound(
+            data[0, 4].transform, 
+            new Vector2(1, 0), 
+            new List<EnemyWave>() { r1w1 }
+        );
+
+        roundManager.Init(new List<Round>() { r1 });
+        
         dirChanges.Add(BuildDirChange(data[7, 4].transform.position, 1, new Vector2(0, 1)));
         dirChanges.Add(BuildDirChange(data[6, 9].transform.position, 1.5f, new Vector2(1, 0)));
 
