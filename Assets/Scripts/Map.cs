@@ -46,7 +46,7 @@ public class Map : MonoBehaviour {
         }
 
         // Initialize round manager
-        EnemyWave r1w1 = roundManager.BuildWave(enemyPrefab, 1, 3);
+        EnemyWave r1w1 = roundManager.BuildWave(enemyPrefab, 1, 1);
         Round r1 = roundManager.BuildRound(
             data[0, 4].transform, 
             new Vector2(1, 0), 

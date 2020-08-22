@@ -680,6 +680,7 @@ GameObject:
   - component: {fileID: 823597254}
   - component: {fileID: 823597253}
   - component: {fileID: 823597252}
+  - component: {fileID: 823597256}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -768,6 +769,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &823597256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823597251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2307c5961b8299142a63e1109105f712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPrefab: {fileID: 1956581739583055818, guid: c8ef71d0f4aaee84b8ef04c6aa1f0c68,
+    type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,6 +1318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 1151648589}
+  healthManager: {fileID: 823597256}
+  mainCamera: {fileID: 963194227}
   roundLabel: {fileID: 608521583}
   currentWave: 0
   currentEnemy: 0
