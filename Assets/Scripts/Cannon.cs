@@ -37,6 +37,7 @@ public class Cannon : Tower
                 return;
             }
             var bullet = Instantiate(bulletMesh);
+            bullet.GetComponent<Bullet>().damage = bulletDamage;
             bullet.transform.parent = transform.parent;
             bullet.transform.position = transform.position;
             var travelVec = enemy.transform.position - bullet.transform.position;
