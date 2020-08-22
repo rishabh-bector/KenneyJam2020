@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag.Equals("bullet")) {
             Destroy(other.gameObject);
-            healthBar.SetHealth(healthBar.GetHealth() - 0.55f);
+            healthBar.SetHealth(healthBar.GetHealth() - other.GetComponent<Bullet>().damage);
             if (healthBar.GetHealth() <= 0) {
                 GetComponentInParent<Map>().RemoveEnemy(this); 
             }

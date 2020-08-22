@@ -9,6 +9,7 @@ public class Cannon : Tower
     // Config
     public float shotRate;
     public float bulletSpeed;
+    public float bulletDamage;
     public override double range {get; set;} = 3;
     public float[] rangeUpgrades = {1.5f, 2f, 3f};
     public float[] speedUpgrades = {1.5f, 2f, 3f};
@@ -21,6 +22,7 @@ public class Cannon : Tower
     void Start() {
         map = transform.parent.GetComponent<Map>();
         shotRate = 2;
+        bulletDamage = 0.55f;
         bulletSpeed = 7f;
         shotTimer = shotRate;
     }
