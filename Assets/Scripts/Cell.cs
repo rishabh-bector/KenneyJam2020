@@ -18,7 +18,6 @@ public class Cell : MonoBehaviour {
     public GameObject[] tiles;
 
     // State
-    private GameObject spawnChild;
     public int[] tileTypes;
     public Vector2 spawnVelocity;
 
@@ -68,29 +67,8 @@ public class Cell : MonoBehaviour {
 
     public void SetPos(Vector3 pos) { transform.position = pos; }
 
-    public void SetSpawner(GameObject spawn, float rate, Vector2 velocity) {
-        if (spawn == null) return;
-        spawnChild = spawn;
-        spawnVelocity = velocity;
-    }
-
-<<<<<<< HEAD
     public void SelectTower(GameObject model) {
         towerSelected = model;
-=======
-    public void Spawn() {
-        if (spawnChild == null) return;
-        var child = Instantiate(spawnChild);
-        child.transform.parent = transform.parent;
-        child.name = "enemyMesh";
-        child.transform.position = transform.position;
-        var pos = transform.localPosition;
-        pos.y = -0.4f;
-        child.transform.localPosition = pos;
-        child.GetComponent<Enemy>().SetVelocity(spawnVelocity);
-        spawnTimer = spawnRate;
-        GetComponentInParent<Map>().AddEnemy(child.GetComponent<Enemy>());
->>>>>>> 0a3ff77ab961d3debcc7273dd72b231ad7ac2a58
     }
 
     public void CreateTower() {
